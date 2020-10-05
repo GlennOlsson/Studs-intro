@@ -1,11 +1,72 @@
 <html>
-	<body>
+	<head>
+		<link href='https://fonts.googleapis.com/css?family=Rozha One' rel='stylesheet'>
+		<style>
+			div {
+				font-family: "Rozha One";
+				border-radius: 10px;
+			}
 
+			p {
+				font-family: "Rozha One";
+			}
+
+			h1 {
+				font-family: "Rozha One";
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="name" style="text-align: center;"></h1>
+		<div id="messages">
+
+		</div>
 	</body>
 	<script>
 		const groupId = "longhorns"
-		document.onload = () => {
-			console.log("Loaded!", groupId)
-		}
+		const url = "http://localhost:3000/"
+		window.addEventListener('load', function() {
+			fetch(url + "?id=" + groupId).then(res => {
+				return res.json();
+			}).then(json => {
+				console.log("JSON ", json)
+				let name = json.name
+				let instructions = json.instructions
+
+				document.getElementById("name").textContent = name
+
+				let instructionsElements = instructions.map(inst => {
+						`
+						<div style="border: 1px solid black;">
+							<p>inst</p>
+						</div>
+						`
+
+						let div = document.createElement("div");
+						div.style = `
+							border: 1px solid black;
+							margin: 5px;
+							padding: 5px;
+							align-text: center;
+							width: 50%;
+							margin-left: 25%
+						`
+
+						let instructionText = document.createElement("p");
+						instructionText.style = `
+							text-align: center;
+						`
+						instructionText.textContent = inst;
+						div.appendChild(instructionText);
+						div.appendChild(document.createElement("br"))
+
+						return div;
+				})
+				for(var elem of instructionsElements) {
+					document.getElementById("messages").append(elem)
+				}
+
+			})
+		})
 	</script>
 </html>

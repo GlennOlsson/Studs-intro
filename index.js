@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 
 	res.setHeader("Access-Control-Allow-Origin", "*")
 
-	const subdomain = req.query.sub
+	const subdomain = req.query.id
 	if( !subdomain ){
 		console.log("No subdomain: ", subdomain)
 		res.send({})
