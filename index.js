@@ -23,6 +23,9 @@ let TASK_INSTRUCTIONS = [
 //Send subdomain as paramter, sub=SUBDOMAIN
 //Replies with {name: NAME, instructions: [INSTRUCTION,...]}
 app.get('/', (req, res) => {
+
+	res.setHeader("Access-Control-Allow-Origin", "*")
+
 	const subdomain = req.query.sub
 	if( !subdomain ){
 		console.log("No subdomain: ", subdomain)
