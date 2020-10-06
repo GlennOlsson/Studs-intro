@@ -46,6 +46,8 @@
 					let name = json.name;
 					let instructions = json.instructions;
 
+					document.title = "Studs - " + name
+
 					document.getElementById("name").textContent = name;
 
 					for (var instruction of instructions) {
