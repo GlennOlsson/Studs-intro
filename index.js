@@ -9,17 +9,6 @@ var fs = require('fs');
 const MAX_LEVEL = 6
 const MIN_LEVEL = 0
 
-const FINAL_COORDINATE = "59.3566, 17.9692"
-
-//Level instructions (i = level - 1, i.e. instruction 0 comes when level is 1 (first is coordinate))
-let TASK_INSTRUCTIONS = [
-	"Skapa en midsommarkrans av godtyckliga föremål. Stäm av med oss när ni är klara",
-	"Spara det största och minsta lövet som ni kan hitta i omgivningen. Hör av er sen!",
-	"Lägg till typ 5 superhärliga låtar i <a href='https://open.spotify.com/playlist/3mdUUNDb1tlRy0bzslhIta?si=_0-auC36RZC4tI9zWjnNHg'>denna spellista</a> och släng sen iväg ett meddelande till oss",
-	"Filma en scen som skulle passa bra i Mission Impossible (glöm inte ljudeffekter och musik!). Skicka videon till oss för godkännande",
-	"Ta en bild på studs och skicka till oss (tolka detta på godtyckligt sätt)",
-]
-
 //Send subdomain as paramter, sub=SUBDOMAIN
 //Replies with {name: NAME, instructions: [INSTRUCTION,...]}
 app.get('/', (req, res) => {
@@ -50,7 +39,7 @@ app.get('/', (req, res) => {
 		return
 	}
 
-	let groupObject = json[subdomain]
+	let groupObject = json.groups[subdomain]
 
 	if(!groupObject) {
 		console.log("No group of subdomain");
@@ -60,8 +49,11 @@ app.get('/', (req, res) => {
 
 	let name = groupObject.name
 	let level = groupObject.level
-	let coordinate = groupObject.coordinate
+	let startCoordinate = groupObject.coordinate
 	let count = groupObject.count
+
+	let taskInstructions = json.instructions;
+	let finalCoordinate = json.finalCoordinate
 
 	let instructions = []
 
@@ -73,14 +65,14 @@ app.get('/', (req, res) => {
 
 	for(var i = level; i >= MIN_LEVEL; i--) {
 		if(i == MAX_LEVEL) {
-			var instruction = "Nu kan ni ta er till koordinaten " + FINAL_COORDINATE;
+			var instruction = "Nu kan ni ta er till koordinaten " + finalCoordinate;
 			instructions.push(instruction);
 		} else if(i == MIN_LEVEL) {
-			var instruction = "Ta dig till " + coordinate + ". När ni är " + count + " personer kan ni höra av er till oss!"; 
+			var instruction = "Ta dig till " + startCoordinate + ". När ni är " + count + " personer kan ni höra av er till oss!"; 
 			instructions.push(instruction);
 		} else {
 			//0 indexed and level 1 is coordinates (MIN_LEVEL)
-			instructions.push(TASK_INSTRUCTIONS[i - 1]);	
+			instructions.push(taskInstructions[i - 1]);	
 		}
 	}
 
