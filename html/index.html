@@ -1,72 +1,65 @@
 <html>
 	<head>
-		<link href='https://fonts.googleapis.com/css?family=Rozha One' rel='stylesheet'>
-		<meta charset="UTF-8">
+		<link
+			href="https://fonts.googleapis.com/css?family=Rozha One"
+			rel="stylesheet"
+		/>
+		<meta charset="UTF-8" />
 		<style>
 			div {
-				font-family: "Rozha One";
 				border-radius: 10px;
 			}
 
 			p {
 				font-family: "Rozha One";
+				text-align: center;
 			}
 
 			h1 {
 				font-family: "Rozha One";
+				text-align: center;
+			}
+
+			.message {
+				border: 1px solid black;
+				margin: 5px;
+				padding: 5px;
+				width: 50%;
+				margin-left: 25%;
 			}
 		</style>
 	</head>
 	<body>
-		<h1 id="name" style="text-align: center;"></h1>
-		<div id="messages">
-
-		</div>
+		<h1 id="name"></h1>
+		<div id="messages"></div>
 	</body>
 	<script>
 		const groupId = window.location.hostname.split(".")[0]
-		const url = "https://studs.glennolsson.se/"
-		window.addEventListener('load', function() {
-			fetch(url + "?id=" + groupId).then(res => {
-				return res.json();
-			}).then(json => {
-				let name = json.name
-				let instructions = json.instructions
+		const url = "https://studs.glennolsson.se/";
 
-				document.getElementById("name").textContent = name
+		window.addEventListener("load", function () {
+			fetch(url + "?id=" + groupId)
+				.then((res) => {
+					return res.json();
+				})
+				.then((json) => {
+					let name = json.name;
+					let instructions = json.instructions;
 
-				let instructionsElements = instructions.map(inst => {
-						`
-						<div style="border: 1px solid black;">
-							<p>inst</p>
-						</div>
-						`
+					document.getElementById("name").textContent = name;
 
+					for (var instruction of instructions) {
 						let div = document.createElement("div");
-						div.style = `
-							border: 1px solid black;
-							margin: 5px;
-							padding: 5px;
-							align-text: center;
-							width: 50%;
-							margin-left: 25%
-						`
+						div.className = "message";
 
 						let instructionText = document.createElement("p");
-						instructionText.style = `
-							text-align: center;
-						`
-						instructionText.textContent = inst;
+
+						instructionText.textContent = instruction;
 						div.appendChild(instructionText);
-						div.appendChild(document.createElement("br"))
 
-						return div;
-				})
-				for(var elem of instructionsElements) {
-					document.getElementById("messages").append(elem)
-				}
-
-			})
-		})
+						document.getElementById("messages").append(div);
+					}
+				});
+		});
 	</script>
 </html>
