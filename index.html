@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<link href='https://fonts.googleapis.com/css?family=Rozha One' rel='stylesheet'>
+		<meta charset="UTF-8">
 		<style>
 			div {
 				font-family: "Rozha One";
@@ -29,7 +30,6 @@
 			fetch(url + "?id=" + groupId).then(res => {
 				return res.json();
 			}).then(json => {
-				console.log("JSON ", json)
 				let name = json.name
 				let instructions = json.instructions
 
