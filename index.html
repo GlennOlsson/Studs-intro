@@ -24,7 +24,7 @@
 		</div>
 	</body>
 	<script>
-		const groupId = "longhorns"
+		const groupId = window.location.hostname.split(".")[0]
 		const url = "https://studs.glennolsson.se/"
 		window.addEventListener('load', function() {
 			fetch(url + "?id=" + groupId).then(res => {
