@@ -52,6 +52,7 @@ app.get('/', (req, res) => {
 	let startCoordinate = groupObject.coordinate
 	let count = groupObject.count
 
+	//Level instructions, i = level - 1, i.e. instruction 0 comes when level is 1 (first is coordinate)
 	let taskInstructions = json.instructions;
 	let finalCoordinate = json.finalCoordinate
 
