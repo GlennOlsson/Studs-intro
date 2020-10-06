@@ -25,7 +25,7 @@ let TASK_INSTRUCTIONS = [
 //Replies with {name: NAME, instructions: [INSTRUCTION,...]}
 app.get('/', cors(), (req, res) => {
 
-	res.setHeader("Access-Control-Allow-Origin", "*")
+	// res.setHeader("Access-Control-Allow-Origin", "*")
 
 	const subdomain = req.query.id
 	if( !subdomain ){
