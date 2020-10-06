@@ -1,7 +1,6 @@
 "use strict"
 
 const express = require('express')
-const cors = require('cors')
 const app = express()
 const port = 3001
 
@@ -23,9 +22,9 @@ let TASK_INSTRUCTIONS = [
 
 //Send subdomain as paramter, sub=SUBDOMAIN
 //Replies with {name: NAME, instructions: [INSTRUCTION,...]}
-app.get('/', cors(), (req, res) => {
+app.get('/', (req, res) => {
 
-	// res.setHeader("Access-Control-Allow-Origin", "*")
+	res.setHeader("Access-Control-Allow-Origin", "*")
 
 	const subdomain = req.query.id
 	if( !subdomain ){
