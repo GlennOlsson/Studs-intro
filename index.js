@@ -69,13 +69,15 @@ app.get('/', (req, res) => {
 			var instruction = "Nu kan ni ta er till koordinaten " + finalCoordinate;
 			instructions.push(instruction);
 		} else if(i == MIN_LEVEL) {
-			var instruction = "Ta dig till " + startCoordinate + ". När ni är " + count + " personer kan ni höra av er till oss på 070-680 96 45!"; 
+			var instruction = "Ta dig till " + startCoordinate + " tills att klockan är 17 (ej ackkvart). När ni är " + count + " personer kan ni höra av er till oss på 070-680 96 45!"; 
 			instructions.push(instruction);
 		} else {
 			//0 indexed and level 1 is coordinates (MIN_LEVEL)
 			instructions.push(taskInstructions[i - 1]);	
 		}
 	}
+
+	console.log("Request from " + name + " at level " + level);
 
 	res.send({
 		"name": name, 
