@@ -77,7 +77,10 @@ app.get('/', (req, res) => {
 		}
 	}
 
-	console.log("Request from " + name + " at level " + level);
+	var options = { day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+	var today  = new Date();
+
+	console.log(today.toLocaleDateString("en-US", options) + ": Request from " + name + " at level " + level);
 
 	res.send({
 		"name": name, 
